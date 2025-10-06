@@ -1,0 +1,34 @@
+@layer base {
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #23262b;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #243d6e;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #081839;
+    cursor: pointer;
+  }
+
+.custom-scroll::-webkit-scrollbar {
+  width: 6px; /* scrollbar width */
+}
+
+/* Scrollbar Track */
+.custom-scroll::-webkit-scrollbar-track {
+  background: #dad3d3; /* track color */
+  border-radius: 10px;
+}
+
+/* Scrollbar Handle */
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #5e6066; /* Tailwind blue-500 */
+  border-radius: 10px;
+}
+
+}
