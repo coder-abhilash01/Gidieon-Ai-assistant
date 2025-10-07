@@ -16,7 +16,7 @@ const Profile = ({ isOpen }) => {
 
   const handleLogut = async()=>{
     try{
-      await axios.post("http://localhost:3000/auth/logout",{},{withCredentials:true})
+      await axios.post("https://gidieon-ai-assistant.onrender.com/auth/logout",{},{withCredentials:true})
   setIsAuthenticated(false)
   Navigate("/login")
   }catch(err){ console.log(err)}

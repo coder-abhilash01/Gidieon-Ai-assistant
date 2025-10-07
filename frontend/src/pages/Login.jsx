@@ -35,7 +35,7 @@ const Login = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post("http://localhost:3000/auth/login", {
+      const res = await axios.post("https://gidieon-ai-assistant.onrender.com/auth/login", {
         email: formData.email,
         password: formData.password
       }, { withCredentials: true });
@@ -48,7 +48,7 @@ const Login = () => {
       toast.success("Login Successfully");
       navigate("/"); // Or "/" if your home route is at "/"
     } catch (err) {
-      console.log(err);
+     
       let errMsg = "Login failed. Please try again.";
       if (err.response && err.response.data && err.response.data.message) {
         errMsg = err.response.data.message;

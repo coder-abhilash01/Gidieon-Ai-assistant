@@ -25,7 +25,7 @@ const AppContextProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/auth/check-auth", {
+        const res = await axios.get("https://gidieon-ai-assistant.onrender.com/auth/check-auth", {
           withCredentials: true,
         });
         setIsAuthenticated(res.data.success);
@@ -60,7 +60,7 @@ const AppContextProvider = ({ children }) => {
 
   // ✅ create socket once
   useEffect(() => {
-    socketRef.current = io("http://localhost:3000", { withCredentials: true });
+    socketRef.current = io("https://gidieon-ai-assistant.onrender.com", { withCredentials: true });
 
     socketRef.current.on("ai-response", (msg) => {
       setMessages((prev) => [...prev, { type: "ai", content: msg.content }]);
@@ -84,7 +84,7 @@ const AppContextProvider = ({ children }) => {
   // ✅ fetch chats
   const fetchChats = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/chats", { withCredentials: true });
+      const res = await axios.get("https://gidieon-ai-assistant.onrender.com/api/chats", { withCredentials: true });
       const chatsList = res.data.chats.reverse()
       setChats(chatsList);
     
@@ -105,7 +105,7 @@ const AppContextProvider = ({ children }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/chats",
+        "https://gidieon-ai-assistant.onrender.com/api/chats",
         { title },
         { withCredentials: true }
       );
@@ -131,7 +131,7 @@ const AppContextProvider = ({ children }) => {
   const getMessages = async (chatId) => {
     if (!chatId) return;
     try {
-      const res = await axios.get(`http://localhost:3000/api/chats/messages/${chatId}`, {
+      const res = await axios.get(`https://gidieon-ai-assistant.onrender.com/api/chats/messages/${chatId}`, {
         withCredentials: true,
       });
       setMessages(
