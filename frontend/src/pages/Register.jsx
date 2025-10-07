@@ -72,7 +72,7 @@ const Register = () => {
     } finally{setLoading(false)}
   }
   return (
-    <div className='w-full h-screen bg-[url("ai1.png")]  bg-center bg-cover'>
+    <div className='w-full h-screen bg-[url("/ai1.png")]  bg-center bg-cover'>
       <div className='w-full h-screen justify-center items-center flex bg-black/70 p-5'>
         <form className=' md:w-4/10 lg:w-2/7 border border-gray-500 flex flex-col justify-center gap-4 p-5 text- shadow-xl backdrop-blur-lg bg-white/20 text-white rounded-lg'
           onSubmit={handleSubmit}>
