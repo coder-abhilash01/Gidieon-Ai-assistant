@@ -61,7 +61,7 @@ const Login = () => {
   };
 
   return (
-    <div className='w-full flex h-screen bg-[url("ai1.png")] bg-center bg-cover'>
+    <div className='w-full flex h-screen bg-[url("/ai1.png")] bg-center bg-cover'>
       <div className='w-full flex p-3 justify-center items-center bg-black/70'>
         <form
           className='border border-zinc-500 flex flex-col justify-center gap-4 p-7 md:text-lg shadow-lg bg-white/20 backdrop-blur-lg text-white rounded'
