@@ -30,7 +30,6 @@ const AppContextProvider = ({ children }) => {
         });
         setIsAuthenticated(res.data.success);
         if (res.data.success) {
-          // fetch chats after login
           fetchChats();
         }
       } catch (err) {
@@ -58,7 +57,7 @@ const AppContextProvider = ({ children }) => {
     return () => axios.interceptors.response.eject(interceptor);
   }, []);
 
-  // ✅ create socket once
+
   useEffect(() => {
     socketRef.current = io(`${import.meta.env.VITE_API_BASE_URL}`, { withCredentials: true });
 
@@ -85,7 +84,7 @@ const AppContextProvider = ({ children }) => {
     getMessages(activeChatId);
   },[activeChatId])
 
-  // ✅ fetch chats
+
   const fetchChats = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/chats`, { withCredentials: true });
@@ -126,14 +125,14 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  // ✅ select chat
+  
   const handleSelectChat = (chatId) => {
     setActiveChatId(chatId);
     localStorage.setItem("activeChatId", chatId);
     getMessages(chatId);
   };
 
-  // ✅ get messages
+  
   const getMessages = async (chatId) => {
     if (!chatId) return;
     try {
@@ -151,7 +150,7 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  // ✅ send message
+  
   const handleSendMessages = () => {
     if (!activeChatId) {return setDialogOpen(true)};
     if (!inputValue.trim()) return;
