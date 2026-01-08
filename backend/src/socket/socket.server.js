@@ -68,18 +68,30 @@ function setupSocketServer(server) {
           role: "user",
         });
 
-        
-        const history = await messageModel
-          .find({ chat: chatId })
-          .sort({ createdAt: 1 })
-          .limit(15)
-          .lean();
+       const history = await messageModel
+  .find({ chat: chatId, role: "user" })
+  .sort({ createdAt: 1 })
+  .limit(10)
+  .lean();
 
+
+          const systemPrompt = `
+You are an AI assistant named Gideon.
+You were created by Abhilash Tiwari.
+
+Rules:
+- Always remember the your creator's name is Abhilash Tiwari
+- If asked who created you, answer: "I was created by Abhilash Tiwari."
+- If asked about the creator, refer to them as Abhilash Tiwari
+- Do NOT invent creators or users
+- If you do not know something, say you do not know
+- Be concise, clear, and helpful
+`;
 
         const messagesForAI = [
           {
             role: "system",
-            content: "You are a helpful AI assistant.",
+            content:systemPrompt,
           },
           ...history
             .filter((m) => typeof m.content === "string")
