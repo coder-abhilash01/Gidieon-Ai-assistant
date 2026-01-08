@@ -51,7 +51,7 @@ const Register = () => {
     }
  setLoading(true)
     try {
-      const res = await axios.post("https://gidieon-ai-assistant.onrender.com/auth/register", {
+      const res = await axios.post(`${import.meta.env.VITE_CLIENT_URL}/auth/register`, {
         fullName: {
           firstName: formData.firstName,
           lastName: formData.lastName

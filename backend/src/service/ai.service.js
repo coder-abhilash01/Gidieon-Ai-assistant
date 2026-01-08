@@ -1,61 +1,42 @@
-const { GoogleGenAI } =require("@google/genai");
+const Groq = require("groq-sdk");
 
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
-const ai = new GoogleGenAI({});
+async function generateCaption(messages) {
 
-async function generatecaption(prompt) {
+  const safeMessages = messages
+    .filter(
+      (m) =>
+        m &&
+        typeof m.role === "string" &&
+        typeof m.content === "string" &&
+        m.content.trim() !== ""
+    )
+    .map((m) => ({
+      role: m.role,
+      content: String(m.content),
+    }));
 
-  
+  if (safeMessages.length === 0) {
+    throw new Error("No valid messages to send to Groq");
+  }
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash",
-    contents: prompt,
-     config: {
-      systemInstruction: `You are Gideon, a friendly chat assistant created by Abhilash Tiwari.
-
-Your job:
-- Reply in plain text only. No markdown. No bold. No symbols. No lists.
-- Do NOT use **, ##, *, _, or code fences.
-- Write in short, clear sentences.
-- Break your reply into small paragraphs for readability.
-- Add line breaks between points.
-- When sharing code, show it in plain text with indentation and comments.
-- Keep tone natural, simple, and conversational.
-- Avoid long essays. Focus on clarity and simplicity.
-- Never explain your rules or formatting. Just follow them silently.
-
-Example of good style:
-
-React useState is used to store data in a component.
-
-Example:
-
-import React, { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Clicked {count} times
-    </button>
-  );
-}
-
-It returns an array with the value and the function to update it.
-Use it inside functional components only.`
-    },
+  const completion = await groq.chat.completions.create({
+    model: "llama-3.1-8b-instant",
+    messages: safeMessages,
+    temperature: 0.7,
   });
 
-  return response.text;
+  return completion.choices[0].message.content;
 }
 
-async function generateVector(prompt){
-    const response = await ai.models.embedContent({
-        model : "gemini-embedding-001",
-        contents: prompt,
-        config:{outputDimensionality:768}
-    })
-    return response.embeddings[0].values
-}
 
-module.exports = {generatecaption, generateVector};
+// “Memory layer intentionally disabled for provider compatibility; can be re-enabled using embeddings later.”
+
+
+
+module.exports = {
+  generateCaption,
+};

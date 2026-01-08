@@ -35,7 +35,7 @@ const Login = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.post("https://gidieon-ai-assistant.onrender.com/auth/login", {
+      const res = await axios.post(`${import.meta.env.VITE_CLIENT_URL}/auth/login`, {
         email: formData.email,
         password: formData.password
       }, { withCredentials: true });

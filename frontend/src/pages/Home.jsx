@@ -88,7 +88,7 @@ recognition.onresult = (event) => {
 
             {
 
-              messages.map((message, i) => (<div key={i} className={`p-2 px-5 rounded-lg ${message.type === 'user' ? 'align-self-end bg-white/30' : 'align-self-start bg-zinc-800/80 '}  backdrop-blur-2xl shadow-inner shadow-black`}>{message.content}</div>))
+              messages.map((message, i) => (<div key={i} className={`p-2 px-5 rounded-lg ${message.type === 'user' ? 'align-self-end bg-white/50' : 'align-self-start bg-zinc-800/80 '}  backdrop-blur-2xl shadow-inner shadow-black`}>{message.content}</div>))
 
             }
             {
