@@ -51,7 +51,7 @@ const Register = () => {
     }
  setLoading(true)
     try {
-      const res = await axios.post(`${import.meta.env.VITE_CLIENT_URL}/auth/register`, {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/register`, {
         fullName: {
           firstName: formData.firstName,
           lastName: formData.lastName

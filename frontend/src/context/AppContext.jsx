@@ -25,7 +25,7 @@ const AppContextProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_CLIENT_URL}/auth/check-auth`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/auth/check-auth`, {
           withCredentials: true,
         });
         setIsAuthenticated(res.data.success);
@@ -60,7 +60,7 @@ const AppContextProvider = ({ children }) => {
 
   // ✅ create socket once
   useEffect(() => {
-    socketRef.current = io(`${import.meta.env.VITE_CLIENT_URL}`, { withCredentials: true });
+    socketRef.current = io(`${import.meta.env.VITE_API_BASE_URL}`, { withCredentials: true });
 
     socketRef.current.on("ai-response", (msg) => {
       setMessages((prev) => [...prev, { type: "ai", content: msg.content }]);
@@ -88,7 +88,7 @@ const AppContextProvider = ({ children }) => {
   // ✅ fetch chats
   const fetchChats = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_CLIENT_URL}/api/chats`, { withCredentials: true });
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/chats`, { withCredentials: true });
       const chatsList = res.data.chats.reverse()
       setChats(chatsList);
     
@@ -109,17 +109,16 @@ const AppContextProvider = ({ children }) => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_CLIENT_URL}/api/chats`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/chats`,
         { title },
         { withCredentials: true }
       );
 
-      console.log(res)
+  
 
       const newChat = res.data.chat;
       setChats((prev) => [newChat, ...prev]);
       setActiveChatId(newChat._id);
-       console.log(newChat._id)
       getMessages(activeChatId)
     } catch (err) {
       console.error("Error creating chat:", err);
@@ -138,7 +137,7 @@ const AppContextProvider = ({ children }) => {
   const getMessages = async (chatId) => {
     if (!chatId) return;
     try {
-      const res = await axios.get(`${import.meta.env.VITE_CLIENT_URL}/api/chats/messages/${chatId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/chats/messages/${chatId}`, {
         withCredentials: true,
       });
       setMessages(

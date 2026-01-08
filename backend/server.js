@@ -8,4 +8,4 @@ const httpServer = http.createServer(app)
 setupSocketServer(httpServer)
 connectDB();
 
-httpServer.listen(PORT,()=>{console.log(`server is running on port 3000`)})
+httpServer.listen(PORT,()=>{console.log(`server is running on port ${PORT}`)})
