@@ -16,7 +16,15 @@ const AppContextProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")) || null);
+  const [user, setUser] = useState(() => {
+  try {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  } catch {
+    return null;
+  }
+});
+
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const navigate = useNavigate()
